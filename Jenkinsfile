@@ -29,7 +29,7 @@ node {
    }
      stage('Deploy App') {
          sh "docker-compose up -d"
-         sh "docker logs ${project_name}_app_1"
+         sh "docker logs training-app-jenkinsfile_app_1"
 
    }
 }
