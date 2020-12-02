@@ -21,8 +21,8 @@ static Connection conn = null;
 		}
  
 		try {
-			// Charger le jdbc driver pour MYSQL.
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/training", "root", "lfig2");
+			// Charger le JDBC driver pour MYSQL.
+			conn = DriverManager.getConnection("jdbc:mysql://db/training-app", "root", "root");
 			if (conn != null) {
 				log("Connexion à la base de données a été établie avec succès.");
 			} else {
@@ -34,27 +34,6 @@ static Connection conn = null;
 			return;
 		}
  
-	}
- 
-	private static void addDataToDB(String companyName, String address, int totalEmployee, String webSite) {
- 
-		try {
-			String insertQueryStatement = "INSERT  INTO  Employee  VALUES  (?,?,?,?)";
- 
-			statement = conn.prepareStatement(insertQueryStatement);
-			statement.setString(1, companyName);
-			statement.setString(2, address);
-			statement.setInt(3, totalEmployee);
-			statement.setString(4, webSite);
- 
-			// execute insert SQL statement
-			statement.executeUpdate();
-			log(companyName + " added successfully");
-		} catch (
- 
-		SQLException e) {
-			e.printStackTrace();
-		}
 	}
  
 	private static void getDataFromDB() {
@@ -112,4 +91,3 @@ static Connection conn = null;
 		}
 	}
 }
-
