@@ -1,0 +1,71 @@
+pipeline {
+   // Some global default variables
+    environment {
+        DOCKERHUB_CREDS = credentials('dockerhub')
+    }
+
+    parameters {
+        string (name: 'DOCKER_REG',       defaultValue: 'walidsaad',                   description: 'Docker registry')
+        string (name: 'IMAGE_NAME',       defaultValue: 'training-app',                                     description: 'Docker Image Name')
+        string (name: 'IMAGE_TAG',       defaultValue: 'v1.0',                                     description: 'Docker Image tag')
+    }
+    tools {
+        // Get the Maven tool.
+      // ** NOTE: This 'M3' Maven tool must be configured
+      // **       in the global configuration.
+        maven "maven3"
+    }
+    
+    
+    agent any
+    stages {
+   stage('Preparation') { 
+   steps {
+      // Get some code from a GitHub repository
+      git 'https://github.com/walidsaad/training-app.git'
+   }
+   }     
+
+ stage('Build') {
+      // Run the maven build
+         sh "mvn -B -DskipTests -Dmaven.test.failure.ignore clean package"
+   }
+
+   stage('Unit Test') {
+         sh "mvn test"
+   }
+
+   stage('Results') {
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archiveArtifacts  'target/*.jar'
+   }
+
+   stage('Build Docker Maven Image') {
+   steps {
+      // Run the docker build command
+   echo "Build Docker Image Of Training-App"
+   sh "docker build -t=\"${IMAGE_NAME}:${IMAGE_TAG}\" ./Dockerfile-training-app"
+   }
+   }
+
+stage('Push Images To DockerHUb') {
+    steps {
+   //Run docker push command
+   echo "Login to Docker HUB"
+   sh "docker login --username $DOCKERHUB_CREDS_USR --password $DOCKERHUB_CREDS_PSW"
+   echo "Push App Image vers DockerHUb"
+   sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REG}/${IMAGE_NAME}:${IMAGE_TAG}"
+   sh "docker push ${DOCKER_REG}/${IMAGE_NAME}:${IMAGE_TAG}"
+   }
+   }
+
+   stage('Deploy App') {
+      steps {
+         // Run the docker-compose up command
+      echo "Login to Docker HUB"
+      sh "docker-compose up -d"
+      sh "docker logs training-app-jenkinsfile_app_1"
+      }
+   }
+}
+}
