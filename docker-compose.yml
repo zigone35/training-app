@@ -1,7 +1,7 @@
 version: '3.3'
 services:
    app:
-     image: "training-app:v1.0"
+     image: "training-app:$BUILD_TAG"
      build:
        context: .
        dockerfile: Dockerfile-training-app
