@@ -20,12 +20,12 @@ pipeline {
     
     agent any
     stages {
-   stage('Preparation') { 
+   /*stage('Preparation') { 
       // Get some code from a GitHub repository
       steps {
       git 'https://github.com/walidsaad/training-app.git'
    }
-   }     
+   }     */
 
  stage('Build') {
       steps {
