@@ -24,7 +24,7 @@ node {
       archiveArtifacts  'target/*.jar'
    }   
    stage('Build Docker Image') {
-         sh "docker-compose -f docker-compose.yml build"
+         sh "BUILD_TAG='v1.0' docker-compose -f docker-compose.yml build"
 
    }
      stage('Deploy App') {
