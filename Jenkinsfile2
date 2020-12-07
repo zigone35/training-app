@@ -8,6 +8,7 @@ pipeline {
         string (name: 'DOCKER_REG',       defaultValue: 'walidsaad',                   description: 'Docker registry')
         string (name: 'IMAGE_NAME',       defaultValue: 'training-app',                                     description: 'Docker Image Name')
         string (name: 'IMAGE_TAG',       defaultValue: 'v1.0',                                     description: 'Docker Image tag')
+         string (name: 'PHPMYADMIN_PORT',       defaultValue: '8000',                                     description: 'PHPMyAdmin Port')
     }
     tools {
         // Get the Maven tool.
@@ -63,7 +64,7 @@ stage('Push Images To DockerHUb') {
       steps {
          // Run the docker-compose up command
       echo "Login to Docker HUB"
-      sh "docker-compose up -d"
+      sh "DOCKER_REG=$DOCKER_REG IMAGE_NAME=$IMAGE_NAME BUILD_TAG=$BUILD_TAG PHPMYADMIN_PORT=$PHPMYADMIN_PORT docker-compose up -d"
       sh "docker logs training-app-jenkinsfile_app_1"
       }
    }
