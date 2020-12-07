@@ -21,7 +21,6 @@ pipeline {
     agent any
     stages {
    stage('Preparation') { 
-   steps {
       // Get some code from a GitHub repository
       steps {
       git 'https://github.com/walidsaad/training-app.git'
