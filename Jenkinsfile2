@@ -51,7 +51,7 @@ pipeline {
    steps {
       // Run the docker build command
    echo "Build Docker Image Of Training-App"
-   sh "docker build -t=\"${IMAGE_NAME}:${IMAGE_TAG}\" ./Dockerfile-training-app"
+   sh "docker build -t=\"${IMAGE_NAME}:${IMAGE_TAG}\" ."
    }
    }
 
