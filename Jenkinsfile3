@@ -48,7 +48,7 @@ pipeline {
 }
 stage ('Publication du binaire') {
 steps {
-sh "curl -u admin:adminadmin --upload-file target/*jar 'http://localhost:8081/repository/maven-snapshots/$IMAGE_NAME${IAMGE_TAG}.jar'"
+sh "curl -u admin:adminadmin --upload-file target/*jar 'http://localhost:8081/repository/maven-snapshots/$IMAGE_NAME${IMAGE_TAG}.jar'"
 }
 }      
    
