@@ -44,12 +44,14 @@ pipeline {
       steps {
       junit '**/target/surefire-reports/TEST-*.xml'
       archiveArtifacts  'target/*.jar'
+}
+}
 stage ('Publication du binaire') {
 steps {
 sh "curl -u admin:adminadmin --upload-file target/*jar 'http://localhost:8081/repository/maven-snapshots/$IMAGE_NAME${IAMGE_TAG}.jar'"
 }
-}      }
-   }
+}      
+   
 
 
 
