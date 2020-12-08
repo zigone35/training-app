@@ -88,7 +88,7 @@ stage("Publish to Nexus Repository Manager") {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
 
                         //upload to Nexus
-                       // nexusArtifactUploader(
+                       /* nexusArtifactUploader(
                             nexusVersion: NEXUS_VERSION,
                             protocol: NEXUS_PROTOCOL,
                             nexusUrl: NEXUS_URL,
@@ -106,7 +106,7 @@ stage("Publish to Nexus Repository Manager") {
                                 file: "pom.xml",
                                 type: "pom"]
                             ]
-                        );
+                        );*/
                     } else {
                         error "*** File: ${artifactPath}, could not be found";
                     }
