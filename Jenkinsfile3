@@ -6,7 +6,7 @@ pipeline {
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "localhost:8081"
         NEXUS_REPOSITORY = "maven-snapshots"
-        NEXUS_CREDENTIAL_ID = "nexus-cred"
+        NEXUS_CREDENTIAL_ID = "nexuscred"
     }
 
     parameters {
