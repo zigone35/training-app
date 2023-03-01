@@ -23,10 +23,12 @@ pipeline {
   agent any
 
   stages {
-    stage('Build') {
+    stage('Build & Sonakube analysis') {
       steps {
       // Run the maven build
-         sh "mvn -B -DskipTests -Dmaven.test.failure.ignore clean package"
+         withSonarQubeEnv('sonarkube') {
+           sh "mvn -B -DskipTests -Dmaven.test.failure.ignore clean package sonar:sonar"
+         }
       }
      }
 
