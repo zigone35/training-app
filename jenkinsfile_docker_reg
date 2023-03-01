@@ -65,10 +65,17 @@ pipeline {
 
     stage('Deploy App') {
       steps {
-         // Run the docker-compose up command
-        echo "Login to Docker HUB"
-        sh "DOCKER_REG=$DOCKER_REG IMAGE_NAME=$IMAGE_NAME BUILD_TAG=$IMAGE_TAG PHPMYADMIN_PORT=$PHPMYADMIN_PORT docker-compose up -d"
+         // Run the docker compose up command
+        echo "docker compose up -d"
+        sh "DOCKER_REG=$DOCKER_REG IMAGE_NAME=$IMAGE_NAME BUILD_TAG=$IMAGE_TAG PHPMYADMIN_PORT=$PHPMYADMIN_PORT docker compose up -d"
         sh "docker logs training-app-jenkinsfile2-app-1"
+      }
+    }
+    stage('Undeploy App') {
+      steps {
+         // Run the docker compose down command
+        echo "docker compose down"
+        sh "DOCKER_REG=$DOCKER_REG IMAGE_NAME=$IMAGE_NAME BUILD_TAG=$IMAGE_TAG PHPMYADMIN_PORT=$PHPMYADMIN_PORT docker compose down"
       }
     }
   }
