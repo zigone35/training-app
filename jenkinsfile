@@ -30,7 +30,7 @@ node {
    }
      stage('Deploy App') {
          sh "BUILD_TAG='v1.0' IMAGE_NAME='ovh35/training-app' PHPMYADMIN_PORT='8090' docker compose up -d"
-         sh "docker logs training-app-pipeline-app-1"
+         sh "docker logs training-app-jenkinsfile-app-1"
    }
      stage('Undeploy App') {
          sh "BUILD_TAG='v1.0' IMAGE_NAME='ovh35/training-app' PHPMYADMIN_PORT='8090' docker compose down"
